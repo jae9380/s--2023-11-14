@@ -1,9 +1,15 @@
 package com.example.sb20231114;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HomeController {
@@ -61,4 +67,110 @@ public class HomeController {
     ) {
         return "계산 결과 : %s".formatted(a + b);
     }
+    @GetMapping("/calc6")
+    @ResponseBody
+    // int 형태의 리턴값을 유지하여 브라우저에 전달하는 방법이 아닌 문자열로 전달이 된다
+    int showCalc6(
+            int a, int b
+    ) {
+        return a + b;
+    }
+
+    @GetMapping("/calc7")
+    @ResponseBody
+    // 논리값 또한 같다
+    boolean showCalc7(
+            int a, int b
+    ) {
+        return a > b;
+    }
+
+    @GetMapping("/calc8")
+    @ResponseBody
+    // String은 기본 타입이 아니기 때문에 값이 없으면 null이 들어가지만, int는 값을 줘야한다
+    // 해당 객체는 json방식으로 저장이 된다
+    Person showCalc8(
+            String name, int age
+    ) {
+        return new Person(name, age);
+    }
+
+    @GetMapping("/calc9")
+    @ResponseBody
+    Person2 showCalc9(
+            String name, int age
+    ) {
+        return new Person2(name, age);
+    }
+
+    @GetMapping("/calc10")
+    @ResponseBody
+    Map<String, Object> showCalc10(
+            String name, int age
+    ) {
+        Map<String, Object> personMap = Map.of(
+                "name", name,
+                "age", age
+        );
+
+        return personMap;
+    }
+
+    @GetMapping("/calc11")
+    @ResponseBody
+    // list 또한 json 방식으로 저장된다
+    List<Integer> showCalc11() {
+        List<Integer> nums = new ArrayList<>() {{
+            add(10);
+            add(-510);
+            add(10010);
+        }};
+
+        return nums;
+    }
+
+    @GetMapping("/calc12")
+    @ResponseBody
+    // 동일
+    int[] showCalc12() {
+        int[] nums = new int[]{10, -510, 10010};
+
+        return nums;
+    }
+
+    @GetMapping("/calc13")
+    @ResponseBody
+    List<Person2> showCalc13(
+            String name, int age
+    ) {
+        List<Person2> persons = new ArrayList<>() {{
+            add(new Person2(name, age));
+            add(new Person2(name + "!", age + 1));
+            add(new Person2(name + "!!", age + 2));
+        }};
+
+        return persons;
+    }
+
+    /*
+     문자열 (JSON)
+     150 => "150"
+     true => "true"
+     'a' => "a"
+     객체를 문자열로 변환 할 때 JSON이라는 표준 방식을 따른다.
+    */
+}
+
+@AllArgsConstructor
+class Person {
+    public String name;
+    public int age;
+}
+
+@AllArgsConstructor
+class Person2 {
+    @Getter
+    private String name;
+    @Getter
+    private int age;
 }
