@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class ArticleController {
@@ -21,13 +19,14 @@ public class ArticleController {
 
     @GetMapping("/article/doWrite")
     @ResponseBody
-    Map<String,Object> doWrite(String title, String body) {
-        Map<String,Object>rs=new LinkedHashMap<>();
-        // Map은 순서에는 상관이 없어서 LinkedHashMap은 순서를 기억한다
+    RsData doWrite(String title, String body) {
         Article article = new Article(articles.size()+1, title, body);
-        rs.put("resultCode","S-1");
-        rs.put("msg", "%d번 게시물이 작성되었습니다.".formatted(article.getId()));
-        rs.put("data", article);
+        articles.add(article);
+        RsData rs = new RsData(
+                "S-1",
+                "%d번 게시물이 작성되었습니다.".formatted(article.getId()),
+                article
+        );
         articles.add(article);
         return rs;
     }
@@ -43,6 +42,14 @@ public class ArticleController {
         return articles;
     }
 }
+
+@AllArgsConstructor
+@Getter
+class RsData{
+    private  String resultCode, msg;
+    private Article data;
+}
+
 @AllArgsConstructor
 @Getter
 class Article{
