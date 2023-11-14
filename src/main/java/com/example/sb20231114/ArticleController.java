@@ -27,6 +27,9 @@ public class ArticleController {
                 "%d번 게시물이 작성되었습니다.".formatted(article.getId()),
                 article
         );
+        String resultCode=rs.getResultCode();
+        String msg=rs.getMsg();
+        Article _article= rs.getData();
         articles.add(article);
         return rs;
     }
