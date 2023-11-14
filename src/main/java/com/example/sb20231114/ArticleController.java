@@ -22,7 +22,7 @@ public class ArticleController {
     RsData doWrite(String title, String body) {
         Article article = new Article(articles.size()+1, title, body);
         articles.add(article);
-        RsData rs = new RsData(
+        RsData<Article> rs = new RsData<>(
                 "S-1",
                 "%d번 게시물이 작성되었습니다.".formatted(article.getId()),
                 article
@@ -30,7 +30,7 @@ public class ArticleController {
         String resultCode=rs.getResultCode();
         String msg=rs.getMsg();
         Article _article= rs.getData();
-        articles.add(article);
+
         return rs;
     }
 
@@ -48,9 +48,9 @@ public class ArticleController {
 
 @AllArgsConstructor
 @Getter
-class RsData{
+class RsData<T>{
     private  String resultCode, msg;
-    private Article data;
+    private T data;
 }
 
 @AllArgsConstructor
