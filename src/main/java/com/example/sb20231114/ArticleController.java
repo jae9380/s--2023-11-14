@@ -11,6 +11,7 @@ import java.util.Map;
 
 @Controller
 public class ArticleController {
+    private Article lastArticle;
     @GetMapping("/article/write")
     String showWrite() {
         return "article/write";
@@ -20,10 +21,16 @@ public class ArticleController {
     @ResponseBody
     Map<String,Object> doWrite(String title, String body) {
         Map<String,Object>rs=new HashMap<>();
-        Article article =new Article(1,title,body);
+        lastArticle =new Article(1,title,body);
         rs.put("msg","1번 게시물이 작성되었습니다.");
-        rs.put("data",article);
+        rs.put("data",lastArticle);
         return rs;
+    }
+
+    @GetMapping("/article/getLastArticle")
+    @ResponseBody
+    Article getLastArticle(String title, String body) {
+        return lastArticle;
     }
 }
 @AllArgsConstructor
