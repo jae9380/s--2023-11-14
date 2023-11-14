@@ -246,6 +246,14 @@ public class HomeController {
         model.addAttribute("v2", "반가워");
         return "calc21";
     }
+    // 미션 1
+    // 새로고치면 값 1씩 증가
+    int num=1;
+    @GetMapping("/calc22")
+    @ResponseBody
+    int showCalc22(){
+        return num++;
+    }
 }
 
 @AllArgsConstructor
