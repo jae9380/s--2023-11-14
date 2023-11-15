@@ -3,7 +3,6 @@ package com.example.sb20231114.domain.article.article.controller;
 import com.example.sb20231114.domain.article.article.entity.Article;
 import com.example.sb20231114.domain.article.article.service.ArticleService;
 import com.example.sb20231114.global.rsData.RsData;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +13,9 @@ import java.util.List;
 @Controller
 public class ArticleController {
     private final ArticleService articleService;
-    @Autowired
+
+    // 해당 클래스 내 생성자가 하나이면 @Autowired 생략이 가능하다
+//    @Autowired
     public ArticleController(ArticleService articleService) {
         this.articleService = articleService;
     }

@@ -2,7 +2,6 @@ package com.example.sb20231114.domain.article.article.service;
 
 import com.example.sb20231114.domain.article.article.entity.Article;
 import com.example.sb20231114.domain.article.article.repository.ArticleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +11,7 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     // 세터 주입은 객체를 만들 때 null이 들어가지만
     // 생성자 주입은 만들자 마자 값을 넣어주기 때문에 final 가능
-    @Autowired// 생성자 주입
+//    @Autowired// 생성자 주입
     public ArticleService(ArticleRepository articleRepository){
         this.articleRepository= articleRepository;
     }
