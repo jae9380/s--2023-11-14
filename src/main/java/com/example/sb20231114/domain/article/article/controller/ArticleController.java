@@ -71,5 +71,26 @@ public class ArticleController {
     List<Article> getArticles() {
         return articleService.finAll();
     }
+
+    @GetMapping("/article/articleServicePointer")
+    @ResponseBody
+    String articleServicePointer(){
+        return articleService.toString();
+        // 객체를 계속 만들지 않고 하나를 만들어 계속 재활용 하고있다.
+    }
+    @GetMapping("/article/httpServletRequestPointer")
+    @ResponseBody
+    String httpServletRequestPointer(HttpServletRequest req){
+        return req.toString();
+    }
+    // Request와Response는 계속 값이 바뀐다.
+    // 해당 객체는 필요할 떄 잠시 생기고 사라진다.
+    @GetMapping("/article/httpServletResponsePointer")
+    @ResponseBody
+    String httpServletResponsePointer(HttpServletResponse resp){
+        return resp.toString();
+    }
+
+
 }
 
