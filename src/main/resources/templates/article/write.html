@@ -8,8 +8,8 @@
 </div>
 <script>
     function submitWriteForm(){
-    const title=document.getElementById('input-title').value,
-        body=document.getElementById('input-body').value;
+    const title=document.getElementById('input-title').value.trim(),// " " 공백 제거
+        body=document.getElementById('input-body').value.trim();
     // title,body 입력값이 없을 경우 리턴
     if ( title.length == 0 ) {
             alert('제목을 입력해주세요.');
