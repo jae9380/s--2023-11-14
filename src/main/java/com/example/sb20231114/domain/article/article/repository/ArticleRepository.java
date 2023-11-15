@@ -1,10 +1,11 @@
 package com.example.sb20231114.domain.article.article.repository;
 
 import com.example.sb20231114.domain.article.article.entity.Article;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class ArticleRepository {
     private final ArrayList<Article> articles = new ArrayList<>();
 
