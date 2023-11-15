@@ -2,6 +2,7 @@ package com.example.sb20231114.domain.article.article.controller;
 
 import com.example.sb20231114.domain.article.article.entity.Article;
 import com.example.sb20231114.domain.article.article.service.ArticleService;
+import com.example.sb20231114.global.rq.Rq;
 import com.example.sb20231114.global.rsData.RsData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,8 +19,10 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 // final 필드나 @Nonnull 어노테이션이 붙은 필드를 파라미터로 받는 생성자를 만들어준다
+
 public class ArticleController {
     private final ArticleService articleService;
+    private final Rq rq;
 
     @GetMapping("/article/write")
     String showWrite() {
@@ -91,6 +94,11 @@ public class ArticleController {
         return resp.toString();
     }
 
+    @GetMapping("/article/rqPointer")
+    @ResponseBody
+    String rqPointer(){
+        return rq.toString();
+    }
 
 }
 
