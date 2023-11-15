@@ -1,12 +1,14 @@
-<a onclick="return false;" href="www.naver.com">네이버</a>
+<a onclick="return false;" href="https://www.naver.com">네이버</a>
 
-<form onsubmit="return false;" style="display: flex; flex-direction: column; gap:20px; max-width:500px;">    <input type="text" id="input-title" placeholder="제목">
+<form onsubmit="submitWriteForm(); return false;"
+      style="display: flex; flex-direction: column; gap:20px; max-width:500px;">
+    <input type="text" id="input-title" placeholder="제목">
     <input type="text" id="input-body" placeholder="내용">
     <!--아래 코드는 아무것도 하지 않는다는 의미-->
     <button type="submit" onclick="submitWriteForm();">
         글쓰기
     </button>
-    <input type="submit" value="글쓰기" onclick="submitWriteForm();">
+
 </form>
 <script>
     function submitWriteForm(){
