@@ -3,6 +3,7 @@ package com.example.sb20231114.domain.article.article.controller;
 import com.example.sb20231114.domain.article.article.entity.Article;
 import com.example.sb20231114.domain.article.article.service.ArticleService;
 import com.example.sb20231114.global.rsData.RsData;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,14 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
+// final 필드나 @Nonnull 어노테이션이 붙은 필드를 파라미터로 받는 생성자를 만들어준다
 public class ArticleController {
     private final ArticleService articleService;
-
-    // 해당 클래스 내 생성자가 하나이면 @Autowired 생략이 가능하다
-//    @Autowired
-    public ArticleController(ArticleService articleService) {
-        this.articleService = articleService;
-    }
 
     @GetMapping("/article/write")
     String showWrite() {
