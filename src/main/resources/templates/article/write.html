@@ -2,12 +2,12 @@
     전송
 </a>
 <hr>
-<form action="/article/doWrite" onsubmit="submitWriteForm(this); return false;"
+<form method="POST" action="/article/doWrite" onsubmit="submitWriteForm(this); return false;"
       style="display: flex; flex-direction: column; gap:20px; max-width:500px;">
     <input type="text" name="title" placeholder="제목">
     <input type="text" name="body" placeholder="내용">
     <!--아래 코드는 아무것도 하지 않는다는 의미-->
-    <button type="submit" onclick="submitWriteForm();">
+    <button type="submit" >
         글쓰기
     </button>
 
