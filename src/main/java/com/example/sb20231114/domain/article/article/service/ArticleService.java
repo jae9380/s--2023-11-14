@@ -2,9 +2,10 @@ package com.example.sb20231114.domain.article.article.service;
 
 import com.example.sb20231114.domain.article.article.entity.Article;
 import com.example.sb20231114.domain.article.article.repository.ArticleRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component // 단 한번만 생성되고, 그 이후에는 재사용되는 객체입니다. => 공융 객체
 public class ArticleService {
     private final ArticleRepository articleRepository= new ArticleRepository();
     public Article write(String title, String body) {
