@@ -55,6 +55,9 @@ public class ArticleController {
                 article
         );
         ObjectMapper objectMapper = new ObjectMapper();
+        // 한글 꺠지는 현상 고치기
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
         resp.getWriter().println(objectMapper.writeValueAsString(rs));
     }
 
