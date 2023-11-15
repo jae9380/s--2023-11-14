@@ -16,13 +16,13 @@
             body=  inputBody.value;
         if ( title.length == 0 ) {
             alert('제목을 입력해주세요.');
-
+            inputTitle.focus(); // 해당 칸 깜빡 깜빡
             return;
         }
 
         if ( body.length == 0 ) {
             alert('내용을 입력해주세요.');
-
+            inputBody.focus();
             return;
         }
     location.href = `/article/doWrite?title=${title}&body=${body}`;
