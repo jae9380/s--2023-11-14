@@ -3,10 +3,11 @@ package com.example.sb20231114.domain.article.article.service;
 import com.example.sb20231114.domain.article.article.entity.Article;
 import com.example.sb20231114.domain.article.article.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Component // 단 한번만 생성되고, 그 이후에는 재사용되는 객체입니다. => 공융 객체
+@Service // @Service는 Service Component라는 의미다. 가독성을 좀 더 좋게하기 위해 이름을 변경
+// @Service <-> @Component 둘은 별 차이가 없다.
 public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
