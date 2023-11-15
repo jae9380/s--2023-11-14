@@ -3,8 +3,11 @@ package com.example.sb20231114.domain.article.article.controller;
 import com.example.sb20231114.domain.article.article.entity.Article;
 import com.example.sb20231114.domain.article.article.service.ArticleService;
 import com.example.sb20231114.global.rsData.RsData;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,10 +38,12 @@ public class ArticleController {
         return rs;
     }
     @PostMapping("/article/write2")
-    @ResponseBody
-    RsData write2(
-//            HttpRequest 요청
-            HttpServletRequest req
+    @SneakyThrows
+    void write2(
+//            전통적인 Servlet 방식은  아래 방식 처럼
+//            Response를 가지면서 응답을 만들었으면 오브젝트 매퍼를 통해서 객체를 만들어야 한다
+            HttpServletRequest req,
+            HttpServletResponse resp
 
     ) {
         String title=req.getParameter("title"),
@@ -49,7 +54,8 @@ public class ArticleController {
                 "%d번 게시물이 작성되었습니다.".formatted(article.getId()),
                 article
         );
-        return rs;
+        ObjectMapper objectMapper = new ObjectMapper();
+        resp.getWriter().println(objectMapper.writeValueAsString(rs));
     }
 
     @GetMapping("/article/getLastArticle")
