@@ -18,9 +18,9 @@ public class ArticleController {
         return "article/write";
     }
 
-    @PostMapping("/article/doWrite")
+    @PostMapping("/article/write")
     @ResponseBody
-    RsData doWrite(String title, String body) {
+    RsData write(String title, String body) {
         Article article = new Article(articles.size()+1, title, body);
         articles.add(article);
         RsData<Article> rs = new RsData<>(
