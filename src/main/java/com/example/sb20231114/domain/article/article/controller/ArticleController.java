@@ -13,8 +13,12 @@ import java.util.List;
 
 @Controller
 public class ArticleController {
-    @Autowired // 필드 주입 , final을 빼야 함
-    private ArticleService articleService; // 상식적으로 =new ~~() 해줘야 하지만, 자동으로 연결해준다
+    private final ArticleService articleService;
+    @Autowired
+    public ArticleController(ArticleService articleService) {
+        this.articleService = articleService;
+    }
+
     @GetMapping("/article/write")
     String showWrite() {
         return "article/write";
