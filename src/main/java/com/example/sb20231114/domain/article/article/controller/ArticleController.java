@@ -27,11 +27,9 @@ public class ArticleController {
     private final Rq rq;
 
     @GetMapping("/article/detail/{id}")
-    @ResponseBody
-    String showDetail(@PathVariable long id) {
-//        Optional<Article> opArticle = articleService.findById(id);
-//        Article article = opArticle.get(); 한줄로
+    String showDetail(Model model, @PathVariable long id) {
         Article article = articleService.findById(id).get();
+        model.addAttribute("article", article);
         return "article/detail";
     }
     @GetMapping("/article/write")
