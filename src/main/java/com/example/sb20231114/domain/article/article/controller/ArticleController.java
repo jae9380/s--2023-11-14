@@ -34,6 +34,14 @@ public class ArticleController {
 
         return "redirect:/article/list?msg=" + msg;
     }
+
+    @GetMapping("/article/modify/{id}")
+    String showModify(Model model, @PathVariable long id) {
+        Article article = articleService.findById(id).get();
+        model.addAttribute("article", article);
+        return "article/modify";
+    }
+
     @GetMapping("/article/detail/{id}")
     String showDetail(Model model, @PathVariable long id) {
         Article article = articleService.findById(id).get();
