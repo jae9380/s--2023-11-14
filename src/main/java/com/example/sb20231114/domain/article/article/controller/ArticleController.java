@@ -3,7 +3,6 @@ package com.example.sb20231114.domain.article.article.controller;
 import com.example.sb20231114.domain.article.article.entity.Article;
 import com.example.sb20231114.domain.article.article.service.ArticleService;
 import com.example.sb20231114.global.rq.Rq;
-import com.example.sb20231114.global.rsData.RsData;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -38,15 +37,10 @@ public class ArticleController {
         private String body;
     }
     @PostMapping("/article/write")
-    @ResponseBody
-    RsData write(@Valid WriteForm writeForm) {
+    String write(@Valid WriteForm writeForm) {
         Article article = articleService.write(writeForm.title, writeForm.body);
-        RsData<Article> rs = new RsData<>(
-                "S-1",
-                "%d번 게시물이 작성되었습니다.".formatted(article.getId()),
-                article
-        );
-        return rs;
+        String msg = "id %d, article created".formatted(article.getId());
+        return "redirect:/article/list?msg=" + msg;
     }
 
     @GetMapping("/article/list")
