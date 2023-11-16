@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Controller
@@ -52,6 +54,7 @@ public class ArticleController {
     String write(@Valid WriteForm writeForm) {
         Article article = articleService.write(writeForm.title, writeForm.body);
         String msg = "%d번 게시물 생성되었습니다.".formatted(article.getId());
+        msg = URLEncoder.encode(msg, StandardCharsets.UTF_8); // 한글 오류
         return "redirect:/article/list?msg=" + msg;
     }
 
