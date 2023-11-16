@@ -6,9 +6,11 @@ import com.example.sb20231114.global.rq.Rq;
 import com.example.sb20231114.global.rsData.RsData;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,7 +20,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 // final 필드나 @Nonnull 어노테이션이 붙은 필드를 파라미터로 받는 생성자를 만들어준다
-
+@Validated // 메소드에 @NotBlank 사용 가능해진다
 public class ArticleController {
     private final ArticleService articleService;
     private final Rq rq;
@@ -30,13 +32,8 @@ public class ArticleController {
 
     @PostMapping("/article/write")
     @ResponseBody
-    RsData write(String title, String body) {
-        if (title == null || title.trim().length() == 0) {
-            throw new IllegalArgumentException("제목을 입력해주세요.");
-        }
-        if (body == null || body.trim().length() == 0) {
-            throw new IllegalArgumentException("내용을 입력해주세요.");
-        }
+    RsData write( @NotBlank(message = "제목좀..") String title,
+                  @NotBlank String body) {
         Article article=articleService.write(title,body);
         RsData<Article> rs = new RsData<>(
                 "S-1",
