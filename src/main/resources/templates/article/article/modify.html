@@ -1,9 +1,7 @@
-<h1>글 수정</h1>
+<html layout:decorate="~{global/layout}">
+<div layout:fragment="content">
 
-<ul style="display: flex; gap: 20px;">
-    <li><a href="/article/write">글 쓰기</a></li>
-    <li><a href="/article/list">글 목록</a></li>
-</ul>
+<h1>글 수정</h1>
 
 <form method="POST" onsubmit="submitModifyForm(this); return false;"
       style="display: flex; flex-direction: column; gap:20px; max-width:500px;">
@@ -30,17 +28,16 @@
         if (title.length == 0) {
             alert('제목을 입력해주세요.');
             inputTitle.focus();
-
             return;
         }
 
         if (body.length == 0) {
             alert('내용을 입력해주세요.');
             inputBody.focus();
-
             return;
         }
-
         form.submit();
     }
 </script>
+</div>
+</html>
