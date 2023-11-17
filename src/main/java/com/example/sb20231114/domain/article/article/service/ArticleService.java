@@ -19,10 +19,6 @@ public class ArticleService {
         return article;
     }
 
-    public Article findLastArticle() {
-        return articleRepository.findLastArticle();
-    }
-
     public List<Article> finAll() {
         return articleRepository.findAll();
     }
