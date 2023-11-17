@@ -32,6 +32,9 @@ public class MemberService {
         memberRepository.delete(id);
     }
 
+    public Optional<Member> findByUsername(String username) {
+        return memberRepository.findByUsername(username);
+    }
     public void modify(long id, String username, String password) {
         Member member = findById(id).get();
         member.setUsername(username);
