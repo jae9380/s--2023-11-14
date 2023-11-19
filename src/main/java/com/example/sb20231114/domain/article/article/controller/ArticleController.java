@@ -5,6 +5,8 @@ import com.example.sb20231114.domain.article.article.entity.Member;
 import com.example.sb20231114.domain.article.article.service.ArticleService;
 import com.example.sb20231114.domain.member.member.service.MemberService;
 import com.example.sb20231114.global.rq.Rq;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,11 +31,21 @@ public class ArticleController {
     private final Rq rq;
 
     @GetMapping("/article/list")
-    String showList(Model model){
-        Member loginedMember = memberService.findById(2L).get();
+    String showList(Model model, HttpServletRequest req){
+        long loginedMemberId = Optional.ofNullable(req.getCookies())
+                .stream()
+                .flatMap(Arrays::stream)
+                .filter(cookie -> cookie.getName().equals("loginedMemberId"))
+                .map(Cookie::getValue)
+                .mapToLong(Long::parseLong)
+                .findFirst()
+                .orElse(0);
+        if (loginedMemberId > 0) {
+            Member loginedMember = memberService.findById(loginedMemberId).get();
+            model.addAttribute("loginedMember", loginedMember);
+        }
         List<Article>articles=articleService.finAll();
         model.addAttribute("articles",articles);
-        model.addAttribute("loginedMember", loginedMember);
         return "article/article/list";
     }
 
