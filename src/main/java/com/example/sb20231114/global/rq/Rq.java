@@ -47,4 +47,8 @@ public class Rq {
         }
         return member;
     }
+
+    public void setSessionAttr(String name, Long value) {
+        req.getSession().setAttribute(name, value);
+    }
 }
