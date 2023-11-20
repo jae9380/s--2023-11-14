@@ -1,5 +1,7 @@
 package com.example.sb20231114.global.rq;
 
+import com.example.sb20231114.domain.article.article.entity.Member;
+import com.example.sb20231114.domain.member.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
@@ -16,10 +18,11 @@ import java.util.Optional;
 public class Rq {
     private final HttpServletRequest req;
     private final HttpServletResponse resp;
-
-    public Rq(HttpServletRequest req, HttpServletResponse resp) {
+    private final MemberService memberService;
+    public Rq(HttpServletRequest req, HttpServletResponse resp, MemberService memberService) {
         this.req = req;
         this.resp = resp;
+        this.memberService = memberService;
     }
 
     public String redirect(String path, String msg) {
@@ -28,8 +31,17 @@ public class Rq {
         return "redirect:" + path + "?msg=" + msg;
     }
 
-    public long getLoginedMember() {
+    public long getLoginedMemberId() {
         return Optional.ofNullable(req.getSession().getAttribute("loginedMemberId"))
                 .map(id->(long)id).orElse(0L);
+    }
+    public Member getLoginedMember() {
+        long loginedMemberId = getLoginedMemberId();
+
+        if (loginedMemberId == 0) {
+            return null;
+        }
+
+        return memberService.findById(loginedMemberId).get();
     }
 }

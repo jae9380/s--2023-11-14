@@ -62,10 +62,10 @@ public class ArticleController {
     @GetMapping("/article/write")
     String showWrite() {
         HttpServletRequest req = rq.getReq();
-        long loginedMemberId = rq.getLoginedMember();
+        long loginedMemberId = rq.getLoginedMemberId();
 
         if (loginedMemberId > 0) {
-            Member loginedMember = memberService.findById(loginedMemberId).get();
+           Member loginedMember=rq.getLoginedMember();
             req.setAttribute("loginedMember", loginedMember);
         }
         return "article/article/write";
