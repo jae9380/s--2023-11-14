@@ -3,9 +3,6 @@ package com.example.sb20231114.domain.member.member.controller;
 import com.example.sb20231114.domain.article.article.entity.Member;
 import com.example.sb20231114.domain.member.member.service.MemberService;
 import com.example.sb20231114.global.rq.Rq;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -34,7 +31,7 @@ public class MemberController {
     }
 
     @PostMapping("/member/login")
-    String login(@Valid LoginForm loginForm, HttpServletResponse response, HttpServletRequest req) {
+    String login(@Valid LoginForm loginForm) {
         Member member = memberService.findByUsername(loginForm.username).get();
         if (!member.getPassword().equals(loginForm.password)) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
@@ -43,6 +40,13 @@ public class MemberController {
         rq.setSessionAttr("loginedMemberId", member.getId());
 
         return rq.redirect("/article/list", "로그인이 완료되었습니다.");
+    }
+
+    @GetMapping("/member/logout")
+    String logout() {
+        rq.removeSessionAttr("loginedMemberId");
+
+        return rq.redirect("/article/list", "로그아웃 되었습니다.");
     }
 
     @GetMapping("/member/join")
