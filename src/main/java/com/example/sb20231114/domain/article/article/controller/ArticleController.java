@@ -21,8 +21,6 @@ import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
-// final 필드나 @Nonnull 어노테이션이 붙은 필드를 파라미터로 받는 생성자를 만들어준다
-
 public class ArticleController {
     private final ArticleService articleService;
     private final MemberService memberService;
@@ -30,13 +28,13 @@ public class ArticleController {
 
     @GetMapping("/article/list")
     String showList(Model model, HttpServletRequest req){
-        long fromSessionLoginedMemberId = Optional
+        long loginedMemberId = Optional
                 .ofNullable(req.getSession().getAttribute("loginedMemberId"))
                 .map(id -> (long) id)
                 .orElse(0L);
 
-        if (fromSessionLoginedMemberId > 0) {
-            Member loginedMember = memberService.findById(fromSessionLoginedMemberId).get();
+        if (loginedMemberId > 0) {
+            Member loginedMember = memberService.findById(loginedMemberId).get();
             model.addAttribute("fromSessionLoginedMember", loginedMember);
         }
         List<Article>articles=articleService.finAll();
@@ -45,7 +43,17 @@ public class ArticleController {
     }
 
     @GetMapping("/article/detail/{id}")
-    String showDetail(Model model, @PathVariable long id) {
+    String showDetail(Model model, @PathVariable long id, HttpServletRequest req) {
+        long loginedMemberId = Optional
+                .ofNullable(req.getSession().getAttribute("loginedMemberId"))
+                .map(_id -> (long) _id)
+                .orElse(0L);
+
+        if (loginedMemberId > 0) {
+            Member loginedMember = memberService.findById(loginedMemberId).get();
+            model.addAttribute("loginedMember", loginedMember);
+        }
+
         Article article = articleService.findById(id).get();
         model.addAttribute("article", article);
         return "article/article/detail";
