@@ -1,4 +1,4 @@
-package com.example.sb20231114.domain.article.article.entity;
+package com.example.sb20231114.domain.member.member.entity;
 
 import lombok.*;
 

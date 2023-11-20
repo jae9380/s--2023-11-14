@@ -1,6 +1,7 @@
 package com.example.sb20231114.domain.article.article.service;
 
 import com.example.sb20231114.domain.article.article.entity.Article;
+import com.example.sb20231114.domain.member.member.entity.Member;
 import com.example.sb20231114.domain.article.article.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,8 @@ import java.util.Optional;
 public class ArticleService {
     private final ArticleRepository articleRepository;
 
-    public Article write(String title, String body) {
-        Article article=new Article(title,body);
+    public Article write(Member member,String title, String body) {
+        Article article=new Article(member,title,body);
         articleRepository.save(article);
         return article;
     }

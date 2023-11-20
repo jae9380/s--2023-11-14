@@ -1,6 +1,6 @@
 package com.example.sb20231114.domain.member.member.controller;
 
-import com.example.sb20231114.domain.article.article.entity.Member;
+import com.example.sb20231114.domain.member.member.entity.Member;
 import com.example.sb20231114.domain.member.member.service.MemberService;
 import com.example.sb20231114.global.rq.Rq;
 import jakarta.validation.Valid;

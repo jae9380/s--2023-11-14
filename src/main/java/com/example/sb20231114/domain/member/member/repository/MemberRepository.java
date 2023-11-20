@@ -1,6 +1,6 @@
 package com.example.sb20231114.domain.member.member.repository;
 
-import com.example.sb20231114.domain.article.article.entity.Member;
+import com.example.sb20231114.domain.member.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
