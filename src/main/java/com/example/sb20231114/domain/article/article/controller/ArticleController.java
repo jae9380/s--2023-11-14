@@ -5,7 +5,6 @@ import com.example.sb20231114.domain.article.article.entity.Member;
 import com.example.sb20231114.domain.article.article.service.ArticleService;
 import com.example.sb20231114.domain.member.member.service.MemberService;
 import com.example.sb20231114.global.rq.Rq;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,22 +30,10 @@ public class ArticleController {
 
     @GetMapping("/article/list")
     String showList(Model model, HttpServletRequest req){
-        long loginedMemberId = Optional.ofNullable(req.getCookies())
-                .stream()
-                .flatMap(Arrays::stream)
-                .filter(cookie -> cookie.getName().equals("loginedMemberId"))
-                .map(Cookie::getValue)
-                .mapToLong(Long::parseLong)
-                .findFirst()
-                .orElse(0);
-        if (loginedMemberId > 0) {
-            Member loginedMember = memberService.findById(loginedMemberId).get();
-            model.addAttribute("loginedMember", loginedMember);
-        }
-        long fromSessionLoginedMemberId = 0;
-
-        if (req.getSession().getAttribute("loginedMemberId") != null)
-            fromSessionLoginedMemberId = (long) req.getSession().getAttribute("loginedMemberId");
+        long fromSessionLoginedMemberId = Optional
+                .ofNullable(req.getSession().getAttribute("loginedMemberId"))
+                .map(id -> (long) id)
+                .orElse(0L);
 
         if (fromSessionLoginedMemberId > 0) {
             Member loginedMember = memberService.findById(fromSessionLoginedMemberId).get();
