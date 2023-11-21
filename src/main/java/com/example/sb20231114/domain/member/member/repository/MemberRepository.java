@@ -12,11 +12,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberRepository {
     private final List<Member> members = new ArrayList<>();
+
     public Member save(Member member) {
         if (member.getId() == null) {
             member.setId(members.size() + 1L);
         }
+
         members.add(member);
+
         return member;
     }
 
@@ -35,6 +38,7 @@ public class MemberRepository {
                 .filter(member -> member.getUsername().equals(username))
                 .findFirst();
     }
+
     public void delete(long id) {
         members.removeIf(member -> member.getId() == id);
     }

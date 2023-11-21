@@ -33,6 +33,7 @@ public class MemberController {
     @PostMapping("/member/login")
     String login(@Valid LoginForm loginForm) {
         Member member = memberService.findByUsername(loginForm.username).get();
+
         if (!member.getPassword().equals(loginForm.password)) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
@@ -66,6 +67,7 @@ public class MemberController {
     @PostMapping("/member/join")
     String join(@Valid JoinForm joinForm) {
         memberService.join(joinForm.username, joinForm.password);
+
         return rq.redirect("/member/login", "회원가입이 완료되었습니다.");
     }
 }

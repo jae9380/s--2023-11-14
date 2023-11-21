@@ -17,7 +17,9 @@ public class ArticleRepository {
         if (article.getId() == null) {
             article.setId(articles.size() + 1L);
         }
+
         articles.add(article);
+
         return article;
     }
 

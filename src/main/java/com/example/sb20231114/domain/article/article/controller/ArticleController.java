@@ -26,22 +26,27 @@ public class ArticleController {
     private final Rq rq;
 
     @GetMapping("/article/list")
-    String showList(Model model){
-        List<Article>articles=articleService.finAll();
-        model.addAttribute("articles",articles);
+    String showList(Model model) {
+        List<Article> articles = articleService.findAll();
+
+        model.addAttribute("articles", articles);
+
         return "article/article/list";
     }
 
     @GetMapping("/article/detail/{id}")
     String showDetail(Model model, @PathVariable long id) {
         Article article = articleService.findById(id).get();
+
         model.addAttribute("article", article);
+
         return "article/article/detail";
     }
 
     @GetMapping("/article/write")
     String showWrite() {
         if (!rq.isLogined()) throw new RuntimeException("로그인 후 이용해주세요.");
+
         return "article/article/write";
     }
 
@@ -58,7 +63,8 @@ public class ArticleController {
     String write(@Valid WriteForm writeForm, HttpServletRequest req) {
         if (!rq.isLogined()) throw new RuntimeException("로그인 후 이용해주세요.");
 
-        Article article = articleService.write(rq.getMember(),writeForm.title, writeForm.body);
+        Article article = articleService.write(rq.getMember(), writeForm.title, writeForm.body);
+
         return rq.redirect("/article/list", "%d번 게시물 생성되었습니다.".formatted(article.getId()));
     }
 
@@ -67,7 +73,9 @@ public class ArticleController {
         if (!rq.isLogined()) throw new RuntimeException("로그인 후 이용해주세요.");
 
         Article article = articleService.findById(id).get();
+
         model.addAttribute("article", article);
+
         return "article/article/modify";
     }
 
@@ -84,8 +92,8 @@ public class ArticleController {
         if (!rq.isLogined()) throw new RuntimeException("로그인 후 이용해주세요.");
 
         articleService.modify(id, modifyForm.title, modifyForm.body);
-        return rq.redirect("/article/list", "%d번 게시물 수정되었습니다.".formatted(id));
 
+        return rq.redirect("/article/list", "%d번 게시물 수정되었습니다.".formatted(id));
     }
 
     @GetMapping("/article/delete/{id}")
@@ -93,7 +101,7 @@ public class ArticleController {
         if (!rq.isLogined()) throw new RuntimeException("로그인 후 이용해주세요.");
 
         articleService.delete(id);
+
         return rq.redirect("/article/list", "%d번 게시물 삭제되었습니다.".formatted(id));
     }
 }
-

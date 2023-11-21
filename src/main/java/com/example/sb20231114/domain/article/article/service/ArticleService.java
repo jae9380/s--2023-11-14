@@ -14,13 +14,15 @@ import java.util.Optional;
 public class ArticleService {
     private final ArticleRepository articleRepository;
 
-    public Article write(Member member,String title, String body) {
-        Article article=new Article(member,title,body);
+    public Article write(Member author, String title, String body) {
+        Article article = new Article(author, title, body);
+
         articleRepository.save(article);
+
         return article;
     }
 
-    public List<Article> finAll() {
+    public List<Article> findAll() {
         return articleRepository.findAll();
     }
 

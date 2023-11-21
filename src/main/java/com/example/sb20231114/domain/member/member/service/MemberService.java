@@ -16,7 +16,9 @@ public class MemberService {
 
     public Member join(String username, String password) {
         Member member = new Member(username, password);
+
         memberRepository.save(member);
+
         return member;
     }
 
@@ -28,13 +30,14 @@ public class MemberService {
         return memberRepository.findById(id);
     }
 
+    public Optional<Member> findByUsername(String username) {
+        return memberRepository.findByUsername(username);
+    }
+
     public void delete(long id) {
         memberRepository.delete(id);
     }
 
-    public Optional<Member> findByUsername(String username) {
-        return memberRepository.findByUsername(username);
-    }
     public void modify(long id, String username, String password) {
         Member member = findById(id).get();
         member.setUsername(username);

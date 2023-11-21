@@ -12,10 +12,13 @@ import lombok.ToString;
 @ToString
 public class Article {
     private Long id;
-    private Member member;
-    private String title, body;
-    public Article(Member member,String title, String body){
-        this.title=title;
-        this.body=body;
+    private Member author;
+    private String title;
+    private String body;
+
+    public Article(Member author, String title, String body) {
+        this.author = author;
+        this.title = title;
+        this.body = body;
     }
 }

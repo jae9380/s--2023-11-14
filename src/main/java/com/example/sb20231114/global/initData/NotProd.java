@@ -10,7 +10,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class NotProd {
     @Bean
-    public ApplicationRunner initNotProd( MemberService memberService, ArticleService articleService) {
+    public ApplicationRunner initNotProd(
+            MemberService memberService,
+            ArticleService articleService
+    ) {
         return args -> {
             Member memberAdmin = memberService.join("admin", "1234");
             Member memberUser1 = memberService.join("user1", "1234");
