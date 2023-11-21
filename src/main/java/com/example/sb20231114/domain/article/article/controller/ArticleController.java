@@ -58,7 +58,6 @@ public class ArticleController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/article/write")
-    @SneakyThrows
     String write(@Valid WriteForm writeForm, HttpServletRequest req) {
         Article article = articleService.write(rq.getMember(), writeForm.title, writeForm.body);
 
@@ -84,6 +83,7 @@ public class ArticleController {
         @NotBlank
         private String body;
     }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/article/modify/{id}")
     String modify(@PathVariable long id, @Valid ModifyForm modifyForm) {
@@ -91,10 +91,11 @@ public class ArticleController {
 
         if (!articleService.canModify(rq.getMember(), article)) throw new RuntimeException("수정권한이 없습니다.");
 
-        articleService.modify(id, modifyForm.title, modifyForm.body);
+        articleService.modify(article, modifyForm.title, modifyForm.body);
 
         return rq.redirect("/article/list", "%d번 게시물 수정되었습니다.".formatted(id));
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/article/delete/{id}")
     String delete(@PathVariable long id) {

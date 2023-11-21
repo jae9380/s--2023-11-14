@@ -12,14 +12,10 @@ public class AdmHomeController {
 
     @GetMapping("/adm")
     public String showMain() {
-
-
         return "home/home/adm/main";
     }
     @GetMapping("/adm/home/about")
     public String showAbout() {
-
-
         return "home/home/adm/about";
     }
 }

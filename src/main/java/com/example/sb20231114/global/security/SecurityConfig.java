@@ -14,12 +14,12 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(
-                authorizeHttpRequests->authorizeHttpRequests
+                authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers("/adm/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
-                .formLogin(formLogin->formLogin.loginPage("/member/login")
-                .defaultSuccessUrl("/article/list")
+                .formLogin(formLogin -> formLogin.loginPage("/member/login")
+                    .defaultSuccessUrl("/article/list")
                 )
                 .logout(logout -> logout.logoutUrl("/member/logout")
                         .logoutSuccessUrl("/article/list")
@@ -28,7 +28,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

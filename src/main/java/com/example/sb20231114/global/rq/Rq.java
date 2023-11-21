@@ -15,7 +15,6 @@ import org.springframework.web.context.annotation.RequestScope;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Optional;
 
 @RequestScope
 @Component
@@ -29,12 +28,13 @@ public class Rq {
     private Member member;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getPrincipal()instanceof User){
-            this.user=(user)authentication.getPrincipal();
+        if (authentication.getPrincipal() instanceof User) {
+            this.user = (User) authentication.getPrincipal();
         }
     }
+
     public String redirect(String path, String msg) {
         msg = URLEncoder.encode(msg, StandardCharsets.UTF_8);
 
@@ -46,7 +46,7 @@ public class Rq {
     }
 
     public boolean isLogined() {
-        return user!=null;
+        return user != null;
     }
 
     public Member getMember() {
@@ -73,6 +73,6 @@ public class Rq {
     }
 
     public boolean isAdmin() {
-        return user.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"));
+        return user.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
     }
 }

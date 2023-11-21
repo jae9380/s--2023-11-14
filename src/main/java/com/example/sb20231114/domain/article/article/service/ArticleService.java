@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-
 public class ArticleService {
     private final ArticleRepository articleRepository;
 
@@ -35,21 +34,21 @@ public class ArticleService {
         articleRepository.delete(article);
     }
 
-    public void modify(long id, String title, String body) {
-        Article article = findById(id).get();
+    public void modify(Article article, String title, String body) {
         article.setTitle(title);
         article.setBody(body);
     }
 
     public boolean canModify(Member actor, Article article) {
-        if (actor==null)return false;
+        if (actor == null) return false;
+
         return article.getAuthor().equals(actor);
     }
 
-    public boolean canDelete(Member actor, Article article){
-        if (actor.isAdmin()) return true;
-
+    public boolean canDelete(Member actor, Article article) {
         if (actor == null) return false;
+
+        if (actor.isAdmin()) return true;
 
         return article.getAuthor().equals(actor);
     }
