@@ -50,7 +50,7 @@ public class Rq {
             member = memberService.findById(getMemberId()).get();
         return member;
     }
-    public void setSessionAttr(String name, long value) {
+    public void setSessionAttr(String name, Object value) {
         req.getSession().setAttribute(name, value);
     }
 
