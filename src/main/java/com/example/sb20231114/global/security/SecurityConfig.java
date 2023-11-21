@@ -13,10 +13,17 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.formLogin(formLogin->formLogin.loginPage("/member/login")
-                .defaultSuccessUrl("/article/list"))
+        return http.authorizeHttpRequests(
+                authorizeHttpRequests->authorizeHttpRequests
+                        .requestMatchers("/adm/**").hasRole("ADMIN")
+                        .anyRequest().permitAll()
+                )
+                .formLogin(formLogin->formLogin.loginPage("/member/login")
+                .defaultSuccessUrl("/article/list")
+                )
                 .logout(logout -> logout.logoutUrl("/member/logout")
-                        .logoutSuccessUrl("/article/list"))
+                        .logoutSuccessUrl("/article/list")
+                )
                 .build();
     }
 
