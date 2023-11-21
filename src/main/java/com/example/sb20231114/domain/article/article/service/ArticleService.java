@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+
 public class ArticleService {
     private final ArticleRepository articleRepository;
 
@@ -38,5 +39,9 @@ public class ArticleService {
         Article article = findById(id).get();
         article.setTitle(title);
         article.setBody(body);
+    }
+
+    public boolean canModify(Member actor, Article article) {
+        return article.getAuthor().equals(actor);
     }
 }
