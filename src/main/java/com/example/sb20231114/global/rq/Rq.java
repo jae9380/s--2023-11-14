@@ -20,6 +20,7 @@ public class Rq {
     private final HttpServletResponse resp;
     private final MemberService memberService;
     private Member member;
+
     public Rq(HttpServletRequest req, HttpServletResponse resp, MemberService memberService) {
         this.req = req;
         this.resp = resp;
@@ -34,18 +35,23 @@ public class Rq {
 
     private long getMemberId() {
         return Optional.ofNullable(req.getSession().getAttribute("loginedMemberId"))
-                .map(id->(long)id).orElse(0L);
-    }
-    public boolean isLogined(){
-        return getMemberId()>0;
+                .map(id -> (long) id).orElse(0L);
     }
 
-    public Member getMember(){
-        if (!isLogined())return null;
-        if (member==null){
-            member=memberService.findById(getMemberId()).get();
+    public boolean isLogined() {
+        return getMemberId() > 0;
+    }
+
+    public Member getMember() {
+        if (!isLogined()) {
+            return null;
         }
+        if (member == null)
+            member = memberService.findById(getMemberId()).get();
         return member;
+    }
+    public void setSessionAttr(String name, long value) {
+        req.getSession().setAttribute(name, value);
     }
 
     public void setSessionAttr(String name, Long value) {
@@ -54,5 +60,9 @@ public class Rq {
 
     public void removeSessionAttr(String name) {
         req.getSession().removeAttribute(name);
+    }
+
+    public boolean isAdmin() {
+        return getMember().isAdmin();
     }
 }
