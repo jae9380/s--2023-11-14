@@ -32,7 +32,7 @@ public class ArticleService {
     }
 
     public void delete(Article article) {
-        articleRepository.remove(article);
+        articleRepository.delete(article);
     }
 
     public void modify(long id, String title, String body) {
@@ -47,6 +47,10 @@ public class ArticleService {
     }
 
     public boolean canDelete(Member actor, Article article){
-        return canModify(actor,article);
+        if (actor.isAdmin()) return true;
+
+        if (actor == null) return false;
+
+        return article.getAuthor().equals(actor);
     }
 }

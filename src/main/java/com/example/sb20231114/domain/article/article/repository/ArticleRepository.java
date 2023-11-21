@@ -34,6 +34,6 @@ public class ArticleRepository {
     }
 
     public void delete(Article article) {
-        article.remov(article);
+        articles.remove(article);
     }
 }
