@@ -12,7 +12,10 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.formLogin(formLogin->formLogin.loginPage("/member/login")
-                .defaultSuccessUrl("/article/list")).build();
+                .defaultSuccessUrl("/article/list"))
+                .logout(logout -> logout.logoutUrl("/member/logout")
+                        .logoutSuccessUrl("/article/list"))
+                .build();
     }
 
     @Bean
