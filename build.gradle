@@ -22,6 +22,9 @@ repositories {
 }
 
 dependencies {
+    // 스프링 시큐리티
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.springframework.security:spring-security-test'
     // 액츄에이터
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     // 밸리데이션
