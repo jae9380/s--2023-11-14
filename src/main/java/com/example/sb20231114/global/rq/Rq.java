@@ -30,7 +30,9 @@ public class Rq {
 
     @PostConstruct
     public void init() {
+        // 현재 로그인한 회원의 인증정보를 가져옴
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         if (authentication.getPrincipal() instanceof User) {
             this.user = (User) authentication.getPrincipal();
         }
@@ -79,6 +81,8 @@ public class Rq {
             return false;
         }
 
-        return user.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        return user.getAuthorities()
+                .stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
     }
 }

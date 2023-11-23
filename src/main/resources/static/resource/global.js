@@ -20,7 +20,6 @@ function parseMsg(msg) {
     return msg.split(";ttl=");
 }
 
-
 function toastWarning(msg) {
     const [_msg, ttl] = parseMsg(msg);
 
@@ -47,6 +46,7 @@ function getQueryParams() {
 
     return paramsObj;
 }
+
 $(function () {
     $('select[value]').each(function (index, el) {
         const value = $(el).attr('value');
@@ -61,6 +61,7 @@ $(function () {
 
             if (!onclickAfter()) return false;
         }
+
         const action = $(this).attr('href');
         const csfTokenValue = $("meta[name='_csrf']").attr("content");
 
@@ -79,10 +80,10 @@ $(function () {
     });
 
     $('a[method="POST"][onclick], a[method="DELETE"][onclick], a[method="PUT"][onclick]').each(function (index, el) {
-            const onclick = $(el).attr('onclick');
+        const onclick = $(el).attr('onclick');
 
-            $(el).removeAttr('onclick');
+        $(el).removeAttr('onclick');
 
-            $(el).attr('onclick-after', onclick);
+        $(el).attr('onclick-after', onclick);
     });
 });

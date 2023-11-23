@@ -1,5 +1,7 @@
 <html layout:decorate="~{global/baseLayout}">
-
+<head>
+    <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">SIMPLE</title>
+</head>
 <body>
 <header layout:fragment="header" class="navbar bg-base-100">
     <div class="navbar-start">
@@ -26,7 +28,7 @@
                     <a href="/member/logout" method="POST"><i class="fa-solid fa-right-from-bracket"></i> 로그아웃</a>
                 </li>
             </ul>
-            </div>
+        </div>
     </div>
     <div class="navbar-center">
         <a href="/" class="btn btn-ghost text-xl">SIMPLE</a>
