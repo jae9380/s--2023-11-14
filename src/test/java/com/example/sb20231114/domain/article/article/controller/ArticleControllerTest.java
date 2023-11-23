@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.hamcrest.Matchers.containsString;
@@ -178,6 +179,33 @@ public class ArticleControllerTest {
                         >%s</textarea>
                         """.formatted(article.getBody()).stripIndent().trim())))
         ;
+    }
+
+    @Test
+    @DisplayName("게시물 수정폼 처리")
+    @WithUserDetails("admin")
+    void t7() throws Exception {
+        // WHEN
+        ResultActions resultActions = mvc
+                .perform(
+                        put("/article/modify/1")
+                                .with(csrf())
+                                .param("title", "제목 new")
+                                .param("body", "내용 new")
+                )
+                .andDo(print());
+
+        // THEN
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().handlerType(ArticleController.class))
+                .andExpect(handler().methodName("modify"))
+                .andExpect(redirectedUrlPattern("/article/list?msg=**"));
+
+        Article article = articleService.findById(1L).get();
+
+        assertThat(article.getTitle()).isEqualTo("제목 new");
+        assertThat(article.getBody()).isEqualTo("내용 new");
     }
 
     // PUT /article/modify/{id}
