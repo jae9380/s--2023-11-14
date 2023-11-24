@@ -46,6 +46,6 @@ public class MemberController {
 
         if (joinRs.isFail()) return rq.historyBack(joinRs);
 
-        return rq.redirect("/member/login",joinRs);
+        return rq.redirectOrBack("/member/login", joinRs);
     }
 }
