@@ -2,6 +2,7 @@ package com.example.sb20231114.global.rq;
 
 import com.example.sb20231114.domain.member.member.entity.Member;
 import com.example.sb20231114.domain.member.member.service.MemberService;
+import com.example.sb20231114.global.rsData.RsData;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -36,6 +37,10 @@ public class Rq {
         if (authentication.getPrincipal() instanceof User) {
             this.user = (User) authentication.getPrincipal();
         }
+    }
+
+    public String redirect(String path, RsData<?> rsData) {
+        return redirect(path, rsData.getMsg());
     }
 
     public String redirect(String path, String msg) {
