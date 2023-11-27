@@ -19,6 +19,7 @@ import static lombok.AccessLevel.PROTECTED;
 public class Attr {
     @Id
     @GeneratedValue(strategy = IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     private String name;

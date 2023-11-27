@@ -1,6 +1,8 @@
 server:
   port: 8020
 spring:
+  thymeleaf:
+    cache: false
   mvc:
     hiddenmethod:
       filter:
@@ -8,16 +10,11 @@ spring:
   threads:
     virtual:
       enabled: true
-  thymeleaf:
-    cache: false
-  h2:
-    console:
-      path: /h2-console
-    datasource:
-      url: jdbc:h2:./sb_dev;MODE=MySQL
-      driverClassName: org.h2.Driver
-      username: sa
-      password:
+  datasource:
+    url: jdbc:h2:./sb_dev;MODE=MySQL
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
   jpa:
     hibernate:
       ddl-auto: update
@@ -28,6 +25,7 @@ spring:
         use_sql_comments: true
 logging:
   level:
-    org.hibernate.orm.jdbc.bind: DEBUG
+    com.ll.sb20231114: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
     org.hibernate.orm.jdbc.extract: TRACE
     org.springframework.transaction.interceptor: TRACE
