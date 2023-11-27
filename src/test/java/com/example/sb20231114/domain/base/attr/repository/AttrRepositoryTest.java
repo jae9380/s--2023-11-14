@@ -15,14 +15,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@Transactional
+// @Rollback
 public class AttrRepositoryTest {
     @Autowired
     private AttrRepository arrtRepository;
 
     @DisplayName("attr 저장")
     @Test
-    @Transactional
-    @Rollback
+    @Rollback(false)
     void t1() {
         Attr attr = Attr.builder()
                 .createDate(LocalDateTime.now())
@@ -34,8 +35,6 @@ public class AttrRepositoryTest {
 
     @DisplayName("attr 저장, 한번 더")
     @Test
-    @Transactional
-    @Rollback
     void t2() {
         Attr attr = Attr.builder()
                 .createDate(LocalDateTime.now())
