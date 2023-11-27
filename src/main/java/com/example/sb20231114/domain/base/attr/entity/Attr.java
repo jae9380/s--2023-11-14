@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
+import java.time.LocalDateTime;
+
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -13,4 +15,6 @@ public class Attr {
     private Long id;
 
     private String name;
+
+    private LocalDateTime createDate;
 }
