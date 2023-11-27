@@ -5,6 +5,9 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+  threads:
+    virtual:
+      enabled: true
   thymeleaf:
     cache: false
   h2:
@@ -15,6 +18,6 @@ spring:
       driverClassName: org.h2.Driver
       username: sa
       password:
-  jpa:
+  jp`a:
     hibernate:
       ddl-auto: create
