@@ -14,10 +14,10 @@ spring:
     console:
       path: /h2-console
     datasource:
-      url: jdbc:h2:mem:sb_dev;MODE=MySQL
+      url: jdbc:h2:./sb_dev;MODE=MySQL
       driverClassName: org.h2.Driver
       username: sa
       password:
-  jp`a:
+  jpa:
     hibernate:
       ddl-auto: create
